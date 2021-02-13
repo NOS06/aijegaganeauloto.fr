@@ -50,12 +50,7 @@ class Drawing
     /**
      * @ORM\Column(type="integer")
      */
-    private ?int $ball6;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private ?int $additionalBall;
+    private ?int $luckyNumber;
 
     public function __construct()
     {
@@ -139,27 +134,13 @@ class Drawing
         return $this;
     }
 
-    public function getBall6(): ?int
+    public function getLuckyNumber(): ?int
     {
-        return $this->ball6;
+        return $this->luckyNumber;
     }
 
-    public function setBall6(int $ball6): self
+    public function setLuckyNumber(?int $luckyNumber): void
     {
-        $this->ball6 = $ball6;
-
-        return $this;
-    }
-
-    public function getAdditionalBall(): ?int
-    {
-        return $this->additionalBall;
-    }
-
-    public function setAdditionalBall(int $additionalBall): self
-    {
-        $this->additionalBall = $additionalBall;
-
-        return $this;
+        $this->luckyNumber = $luckyNumber;
     }
 }

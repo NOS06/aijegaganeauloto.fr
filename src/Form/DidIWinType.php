@@ -18,8 +18,7 @@ class DidIWinType extends AbstractType
             ->add('ball3', IntegerType::class)
             ->add('ball4', IntegerType::class)
             ->add('ball5', IntegerType::class)
-            ->add('ball6', IntegerType::class)
-            ->add('additionalBall', IntegerType::class)
+            ->add('luckyNumber', IntegerType::class)
         ;
     }
 

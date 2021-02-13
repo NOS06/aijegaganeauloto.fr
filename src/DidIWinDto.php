@@ -38,15 +38,9 @@ class DidIWinDto
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Range(min="1", max="49")
-     */
-    private ?int $ball6;
-
-    /**
-     * @Assert\NotBlank()
      * @Assert\Range(min="1", max="10")
      */
-    private ?int $additionalBall;
+    private ?int $luckyNumber;
 
     public function getBall1(): ?int
     {
@@ -98,24 +92,14 @@ class DidIWinDto
         $this->ball5 = $ball5;
     }
 
-    public function getBall6(): ?int
+    public function getLuckyNumber(): ?int
     {
-        return $this->ball6;
+        return $this->luckyNumber;
     }
 
-    public function setBall6(?int $ball6): void
+    public function setLuckyNumber(?int $luckyNumber): void
     {
-        $this->ball6 = $ball6;
-    }
-
-    public function getAdditionalBall(): ?int
-    {
-        return $this->additionalBall;
-    }
-
-    public function setAdditionalBall(?int $additionalBall): void
-    {
-        $this->additionalBall = $additionalBall;
+        $this->luckyNumber = $luckyNumber;
     }
 
     public function getBalls(): array
@@ -126,7 +110,6 @@ class DidIWinDto
             $this->getBall3(),
             $this->getBall4(),
             $this->getBall5(),
-            $this->getBall6(),
         ];
     }
 }

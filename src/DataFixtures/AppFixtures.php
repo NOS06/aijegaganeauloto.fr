@@ -19,8 +19,7 @@ class AppFixtures extends Fixture
             $drawing->setBall3(random_int(1, 49));
             $drawing->setBall4(random_int(1, 49));
             $drawing->setBall5(random_int(1, 49));
-            $drawing->setBall6(random_int(1, 49));
-            $drawing->setAdditionalBall(random_int(1, 10));
+            $drawing->setLuckyNumber(random_int(1, 10));
 
             $drawingDate->modify('-1 day');
             $manager->persist($drawing);

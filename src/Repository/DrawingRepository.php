@@ -30,10 +30,9 @@ class DrawingRepository extends ServiceEntityRepository
             ->andWhere($qb->expr()->in('drawing.ball3', ':balls'))
             ->andWhere($qb->expr()->in('drawing.ball4', ':balls'))
             ->andWhere($qb->expr()->in('drawing.ball5', ':balls'))
-            ->andWhere($qb->expr()->in('drawing.ball6', ':balls'))
-            ->andWhere($qb->expr()->in('drawing.additionalBall', ':additionalBall'))
+            ->andWhere($qb->expr()->in('drawing.luckyNumber', ':luckyNumber'))
             ->setParameter(':balls', $dto->getBalls())
-            ->setParameter(':additionalBall', $dto->getAdditionalBall())
+            ->setParameter(':luckyNumber', $dto->getLuckyNumber())
             ->getQuery()
             ->enableResultCache()
             ->getOneOrNullResult();
