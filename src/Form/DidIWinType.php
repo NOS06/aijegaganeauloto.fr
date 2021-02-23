@@ -25,7 +25,7 @@ class DidIWinType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => DidIWinDto::class
+            'data_class' => DidIWinDto::class,
         ]);
     }
 }
