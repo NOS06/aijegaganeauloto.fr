@@ -3,6 +3,8 @@
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "name": "nos06/aijegagneauloto.fr",
+    "description": "Ai-je déjà gagné au loto ?",
     "require": {
         "php": ">=7.4",
         "ext-ctype": "*",
