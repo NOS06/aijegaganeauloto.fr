@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $drawingDate = new \DateTime();
-        for ($i=0; $i <= 100; $i++) {
+        for ($i = 0; $i <= 100; ++$i) {
             $drawing = new Drawing();
             $drawing->setDrawDate(clone $drawingDate);
             $drawing->setBall1(random_int(1, 49));
