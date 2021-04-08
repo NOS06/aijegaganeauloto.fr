@@ -23,7 +23,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php-version: ['7.4']
+                php-version: ['7.4', '8.0']
 
         steps:
             - name: "Checkout code"
@@ -48,12 +48,9 @@ jobs:
                   key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
                   restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
 
-            - name: "Require symfony/flex"
-              run: composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-main
-
-            - name: "Composer update"
+            - name: "Composer install"
               id: install
-              run: composer update --no-scripts
+              run: composer install
 
             - name: Lint YAML files
               if: always() && steps.install.outcome == 'success'
