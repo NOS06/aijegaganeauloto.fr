@@ -54,14 +54,11 @@ jobs:
                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
                  restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
 
-           - name: "Require symfony/flex"
-             run: composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-main
-
            - if: matrix.php-version != '8.0'
-             run: composer update
+             run: composer install
 
            - if: matrix.php-version == '8.0'
-             run: composer update --ignore-platform-req=php
+             run: composer install --ignore-platform-req=php
 
            - if: matrix.php-version != '8.0'
              name: "Install PHPUnit"
