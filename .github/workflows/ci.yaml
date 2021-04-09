@@ -74,6 +74,6 @@ jobs:
            - name: Slack Notification
              uses: rtCamp/action-slack-notify@v2
              env:
-                SLACK_MESSAGE: 'Post Content :rocket:'
-                SLACK_TITLE: Post Title
+                SLACK_USERNAME: "NOS06 bot"
+                SLACK_TITLE: "CI results"
                 SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
