@@ -14,22 +14,22 @@ class DidIWinType extends AbstractType
     {
         $builder
             ->add('ball1', IntegerType::class, [
-                'label' => 'Boule 1'
+                'label' => 'Boule 1',
             ])
             ->add('ball2', IntegerType::class, [
-                'label' => 'Boule 2'
+                'label' => 'Boule 2',
             ])
             ->add('ball3', IntegerType::class, [
-                'label' => 'Boule 3'
+                'label' => 'Boule 3',
             ])
             ->add('ball4', IntegerType::class, [
-                'label' => 'Boule 4'
+                'label' => 'Boule 4',
             ])
             ->add('ball5', IntegerType::class, [
-                'label' => 'Boule 5'
+                'label' => 'Boule 5',
             ])
             ->add('luckyNumber', IntegerType::class, [
-                'label' => 'Numéro chance'
+                'label' => 'Numéro chance',
             ])
         ;
     }

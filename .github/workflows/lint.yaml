@@ -45,8 +45,8 @@ jobs:
               uses: actions/cache@v2.1.2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
-                  restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+                  key: ${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
+                  restore-keys: ${{ matrix.php-version }}-composer-
 
             - name: "Composer install"
               id: install
