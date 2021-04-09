@@ -8,6 +8,7 @@ on:
 
 env:
    fail-fast: true
+   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
    test:
@@ -59,6 +60,12 @@ jobs:
              run: |
                 yarn install
                 yarn build
+
+           - name: "Run migrations (init db)"
+             run: bin/console doctrine:migrations:migrate
+
+           - name: "Load fixtures (init db)"
+             run: bin/console doctrine:fixtures:load
 
            - name: "Install PHPUnit for PHP 8"
              run: vendor/bin/simple-phpunit install
