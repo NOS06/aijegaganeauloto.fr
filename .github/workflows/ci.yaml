@@ -65,10 +65,10 @@ jobs:
                 yarn build
 
            - name: "Run migrations (init db)"
-             run: bin/console doctrine:migrations:migrate
+             run: bin/console doctrine:migrations:migrate -n
 
            - name: "Load fixtures (init db)"
-             run: bin/console doctrine:fixtures:load
+             run: bin/console doctrine:fixtures:load -n
 
            - name: "Install PHPUnit for PHP 8"
              run: vendor/bin/simple-phpunit install
