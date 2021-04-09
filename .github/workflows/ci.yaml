@@ -38,6 +38,11 @@ jobs:
            - name: "Composer install"
              run: composer install
 
+           - name: "Install Node deps"
+             run: |
+                yarn install
+                yarn build
+
            - name: "Install PHPUnit for PHP 8"
              run: vendor/bin/simple-phpunit install
 
