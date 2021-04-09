@@ -8,26 +8,9 @@ on:
 
 env:
    fail-fast: true
-   PHPUNIT_FLAGS: "-v"
-   SYMFONY_PHPUNIT_DIR: "$HOME/symfony-bridge/.phpunit"
-   SYMFONY_REQUIRE: ">=4.4"
-   # 40x: Since symfony/monolog-bridge 5.2:
-   # Passing an actionLevel (int|string) as constructor's 3rd argument of
-   # "Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy"
-   # is deprecated, "Monolog\Handler\FingersCrossed\ActivationStrategyInterface" expected.
-   SYMFONY_DEPRECATIONS_HELPER: 40
 
 jobs:
    test:
-       name: "${{ matrix.operating-system }} / PHP ${{ matrix.php-version }}"
-       runs-on: ${{ matrix.operating-system }}
-       continue-on-error: false
-
-       strategy:
-           matrix:
-               operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
-               php-version: ['7.4', '8.0']
-
        steps:
            - name: "Checkout code"
              uses: actions/checkout@v2.3.3
@@ -36,12 +19,9 @@ jobs:
              uses: shivammathur/setup-php@2.7.0
              with:
                  coverage: "none"
-                 extensions: "intl, mbstring, pdo_sqlite"
-                 php-version: ${{ matrix.php-version }}
+                 extensions: "intl, mbstring, pdo_pgsql"
+                 php-version: '8.0'
                  tools: composer:v2
-
-           - name: "Add PHPUnit matcher"
-             run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
            - name: "Set composer cache directory"
              id: composer-cache
@@ -51,26 +31,17 @@ jobs:
              uses: actions/cache@v2.1.2
              with:
                  path: ${{ steps.composer-cache.outputs.dir }}
-                 key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
-                 restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+                 key: composer-${{ hashFiles('composer.json') }}
+                 restore-keys: composer-
 
-           - if: matrix.php-version != '8.0'
+           - name: "Composer install"
              run: composer install
 
-           - if: matrix.php-version == '8.0'
-             run: composer install --ignore-platform-req=php
-
-           - if: matrix.php-version != '8.0'
-             name: "Install PHPUnit"
+           - name: "Install PHPUnit for PHP 8"
              run: vendor/bin/simple-phpunit install
 
-           - if: matrix.php-version == '8.0'
-             name: "Install PHPUnit for PHP 8"
-             run: |
-               echo 'SYMFONY_PHPUNIT_VERSION=9.4' >> $GITHUB_ENV
-               vendor/bin/simple-phpunit install
            - name: "PHPUnit version"
              run: vendor/bin/simple-phpunit --version
 
            - name: "Run tests"
-             run: vendor/bin/simple-phpunit ${{ env.PHPUNIT_FLAGS }}
+             run: vendor/bin/simple-phpunit
