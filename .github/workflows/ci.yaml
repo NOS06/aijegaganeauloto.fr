@@ -70,10 +70,3 @@ jobs:
 
            - name: "Run tests"
              run: vendor/bin/simple-phpunit
-
-           - name: Slack Notification
-             uses: rtCamp/action-slack-notify@v2
-             env:
-                SLACK_USERNAME: "NOS06 bot"
-                SLACK_TITLE: "CI results"
-                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
