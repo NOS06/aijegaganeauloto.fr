@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ajgel-KUBE_ID 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: ajgel-KUBE_ID 
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: main 
+  POSTGRES_USER: main
+  POSTGRES_PASSWORD: main
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: ajgel-KUBE_ID 
+  labels:
+    app: postgres
+spec:
+  ports:
+   - port: 5432
+  selector:
+   app: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: symfony 
+  namespace: ajgel-KUBE_ID 
+spec:
+  selector:
+    app: symdony
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+---
+apiVersion: extensions/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: ajgel-KUBE_ID 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.4
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony
+  namespace: ajgel-KUBE_ID
+spec:
+  selector:
+    matchLabels:
+      app: symfony
+  template:
+    metadata:
+      labels:
+        app: symfony
+    spec:
+      containers:
+      - name: symfony
+        image: ${DOCKER_IMAGE}
+        ports:
+        - containerPort: 80 
+        env:
+          - name: APP_SECRET
+            value: "99fdd70735dc3d295670ae0a57e6f8e9"
+          - name: DATABASE_URL
+            value: "postgresql://main:main@postgres:5432/main?serverVersion=13&charset=utf8"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: symfony443
+  namespace: ajgel-KUBE_ID
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`KUBE_ID.staging.cloudlol.lol`)
+      kind: Rule
+      services:
+        - name: symfony
+          port: 1337
+  tls:
+    certResolver: default
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: symfony80
+  namespace: ajgel-KUBE_ID
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`KUBE_ID.staging.cloudlol.lol`)
+      kind: Rule
+      services:
+        - name: symfony
+          port: 1337
