@@ -21,9 +21,9 @@ jobs:
     linters:
         name: Linters
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                php-version: ['7.4', '8.0']
+#        strategy:
+#            matrix:
+#                php-version: ['7.4', '8.0']
 
         steps:
             - name: "Checkout code"
@@ -34,7 +34,7 @@ jobs:
               with:
                   coverage: "none"
                   extensions: intl
-                  php-version: ${{ matrix.php-version }}
+                  php-version: '8.0'
                   tools: composer:v2
 
             - name: "Set composer cache directory"
@@ -45,8 +45,10 @@ jobs:
               uses: actions/cache@v2.1.2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
-                  restore-keys: ${{ matrix.php-version }}-composer-
+#                  key: ${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
+#                  restore-keys: ${{ matrix.php-version }}-composer-
+                  restore-keys: composer-
 
             - name: "Composer install"
               id: install
