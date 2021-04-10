@@ -6,6 +6,7 @@ on:
 
 env:
    fail-fast: true
+   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
    test:
