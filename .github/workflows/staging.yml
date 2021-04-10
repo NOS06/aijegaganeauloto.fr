@@ -50,10 +50,10 @@ jobs:
           VERSION=${GITHUB_SHA}
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=tags::${TAGS}
-      - name: sed
-        uses: lefherz/action-sed@master
-        with:
-          args: sed -ie "s/test/${GITHUB_SHA}/g" ./kubernetes-staging.yml"
+#      - name: sed
+#        uses: lefherz/action-sed@master
+#        with:
+#          args: sed -ie "s/test/${GITHUB_REF##*/}/g" ./kubernetes-staging.yml"
       - name: deploy app 
         uses: steebchen/kubectl@master
         env:
