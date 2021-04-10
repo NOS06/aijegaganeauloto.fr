@@ -4,9 +4,6 @@ on:
    pull_request:
    push:
 
-env:
-   fail-fast: true
-
 jobs:
    test:
        runs-on: 'ubuntu-latest'
