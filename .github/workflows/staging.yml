@@ -1,0 +1,70 @@
+on:
+  push:
+    branches-ignore:
+      - 'master'
+  workflow_run:
+    workflows: ["CI","Lint"]
+    types: [completed]
+
+  build-push:
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=ghcr.io/niceopensource/aijegaganeauloto
+          VERSION=${GITHUB_SHA}
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          echo ::set-output name=tags::${TAGS}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: .
+          file: ./Dockerfile
+          tags: ${{ steps.prep.outputs.tags }}
+
+#  deploy:
+#    needs: build-push
+#    name: deploy to cluster
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@master
+#      - name: Prepare
+#        id: prep
+#        run: |
+#          DOCKER_IMAGE=ghcr.io/niceopensource/aijegaganeauloto
+#          VERSION=${GITHUB_SHA}
+#          TAGS="${DOCKER_IMAGE}:${VERSION}"
+#          echo ::set-output name=tags::${TAGS}
+#      - name: sed
+#        uses: lefherz/action-sed@master
+#        with:
+#          args: sed -ie "s/KUBE_ID/${GITHUB_SHA}/g" ./kubernetes-staging.yml"
+#      - name: deploy app 
+#        uses: steebchen/kubectl@master
+#        env:
+#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#        with:
+#          args: apply -f kubernetes-staging.yml 
+
+
+#    - name: verify deployment
+#      uses: steebchen/kubectl@master
+#      env:
+#        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#        KUBECTL_VERSION: "1.15"
+#      with:
+#        args: '"rollout status deployment/api"'

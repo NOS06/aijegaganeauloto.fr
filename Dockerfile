@@ -29,7 +29,7 @@ COPY . /app
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
 
-ENV APP_ENV=prod \
+ENV APP_ENV=dev \
     APP_DEBUG=0 \
     DATABASE_URL="postgresql://main:main@database:5432/main?serverVersion=12&charset=utf8"
 
