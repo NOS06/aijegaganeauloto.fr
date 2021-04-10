@@ -36,30 +36,30 @@ jobs:
           file: ./Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
 
-#  deploy:
-#    needs: build-push
-#    name: deploy to cluster
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@master
-#      - name: Prepare
-#        id: prep
-#        run: |
-#          DOCKER_IMAGE=ghcr.io/niceopensource/aijegaganeauloto
-#          VERSION=${GITHUB_SHA}
-#          TAGS="${DOCKER_IMAGE}:${VERSION}"
-#          echo ::set-output name=tags::${TAGS}
-#      - name: sed
-#        uses: lefherz/action-sed@master
-#        with:
-#          args: sed -ie "s/KUBE_ID/${GITHUB_SHA}/g" ./kubernetes-staging.yml"
-#      - name: deploy app 
-#        uses: steebchen/kubectl@master
-#        env:
-#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-#        with:
-#          args: apply -f kubernetes-staging.yml 
+  deploy:
+    needs: build-push
+    name: deploy to cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=ghcr.io/niceopensource/aijegaganeauloto
+          VERSION=${GITHUB_SHA}
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          echo ::set-output name=tags::${TAGS}
+      - name: sed
+        uses: lefherz/action-sed@master
+        with:
+          args: sed -ie "s/test/${GITHUB_SHA}/g" ./kubernetes-staging.yml"
+      - name: deploy app 
+        uses: steebchen/kubectl@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: apply -f kubernetes-staging.yml 
 
 
 #    - name: verify deployment
