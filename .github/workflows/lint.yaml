@@ -2,8 +2,8 @@ name: "Lint"
 
 on: [push, pull_request]
 
-env:
-    fail-fast: true
+#env:
+#    fail-fast: true
 
 jobs:
     php-cs-fixer:
