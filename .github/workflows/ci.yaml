@@ -78,7 +78,7 @@ jobs:
                 SLACK_TITLE: "CI results"
                 SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
-          - name: initial labeling
-            uses: andymckay/labeler@master
-            with:
-              add-labels: "CI success"
+           - name: initial labeling
+             uses: andymckay/labeler@master
+             with:
+                add-labels: "CI success"
