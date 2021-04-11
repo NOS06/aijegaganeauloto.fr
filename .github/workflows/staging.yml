@@ -51,13 +51,9 @@ jobs:
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=tags::${TAGS}
       - name: update env name
-        uses: lefherz/action-sed@master
-        with:
-          args: sed -ie "s/test/${GITHUB_REF##*/}/g" ./kubernetes-staging.yml
+        run: sed -ie "s/test/${GITHUB_REF##*/}/g" ./kubernetes-staging.yml
       - name: update image version 
-        uses: lefherz/action-sed@master
-        with:
-          args : sed -ie "s/{{ docker_image }}/ ${{ steps.prep.outputs.tags }}/g" ./kubernetes-staging.yml
+        run : sed -ie "s/{{ docker_image }}/ ${{ steps.prep.outputs.tags }}/g" ./kubernetes-staging.yml
       - name: deploy app 
         uses: steebchen/kubectl@master
         env:
