@@ -58,7 +58,7 @@ spec:
       containers:
       - name: symfony
         #image: ghcr.io/niceopensource/aijegaganeauloto:ba42eb28904cbb2beab62598fc96cda310beee11 
-        image: ${TAG}
+        image: {{ docker_image }} 
         ports:
         - containerPort: 80 
           name: symfony
