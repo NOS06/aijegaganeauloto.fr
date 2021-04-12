@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Pod 
 metadata:
   name: symfony
@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: symfony 
   containers:
-  - name: symfony-dn
+  - name: symfony-db
     image: {{ docker_image }} 
     command: ["bin/console"]
     args: ["doctrine:migrations:migrate", "-n"]
