@@ -51,7 +51,7 @@ jobs:
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=tags::${TAGS}
       - name: update env name
-        run: sed -ie "s#test#${GITHUB_REF##*/}#g" ./kubernetes-staging.yml
+        run: sed -ie "s#test#${GITHUB_REF##*/}#g" ./kubernetes-staging.yml ./kubernetes-db.yml
       - name: update image version 
         run : sed -ie "s#{{ docker_image }}#${{ steps.prep.outputs.tags }}#g" ./kubernetes-staging.yml ./kubernetes-db.yml
       - name: deploy app 
