@@ -4,18 +4,6 @@ metadata:
   name: apjgel
 ---
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-config
-  namespace: apjgel
-  labels:
-    app: postgres
-data:
-  POSTGRES_DB: main 
-  POSTGRES_USER: main
-  POSTGRES_PASSWORD: main
----
-apiVersion: v1
 kind: Service
 metadata:
   name: symfony 
@@ -128,4 +116,3 @@ spec:
       services:
         - name: symfony
           port: 80
-

@@ -4,18 +4,6 @@ metadata:
   name: apjgel-test 
 ---
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-config
-  namespace: apjgel-test 
-  labels:
-    app: postgres
-data:
-  POSTGRES_DB: main 
-  POSTGRES_USER: main
-  POSTGRES_PASSWORD: main
----
-apiVersion: v1
 kind: Service
 metadata:
   name: symfony 
@@ -57,7 +45,6 @@ spec:
     spec:
       containers:
       - name: symfony
-        #image: ghcr.io/niceopensource/aijegaganeauloto:ba42eb28904cbb2beab62598fc96cda310beee11 
         image: {{ docker_image }} 
         ports:
         - containerPort: 80 
