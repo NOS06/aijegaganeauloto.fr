@@ -61,6 +61,20 @@ jobs:
         with:
           args: apply -f kubernetes-staging.yml 
 
+  init-db:
+    needs: deploy 
+    name: init db 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: run cli console 
+        uses: steebchen/kubectl@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: -n apjel-${GITHUB_REF##*/} exec -it $(kubectl -n apjgel-${GITHUB_REF##*/} get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep symfony) -- bin/console doctrine:migrations:migrate -n 
+
 
 #    - name: verify deployment
 #      uses: steebchen/kubectl@master
