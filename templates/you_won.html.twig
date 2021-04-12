@@ -3,5 +3,14 @@
 {% block title %}{% endblock %}
 
 {% block main %}
-    🥳 You won in {{ drawing.drawDate|format_datetime }}
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-6 text-center">
+            🥳 Tu as gagné le {{ drawing.drawDate|format_datetime('short', 'none') }}
+        </div>
+        <div class="col-12 text-center mt-4">
+            <a class="twitter-share-button"
+               href="https://twitter.com/intent/tweet?text={{ ("🥳 J'ai été millionaire 😎 le " ~ drawing.drawDate|format_datetime('short', 'none'))|url_encode }}">
+                Tweet</a>
+        </div>
+    </div>
 {% endblock %}
