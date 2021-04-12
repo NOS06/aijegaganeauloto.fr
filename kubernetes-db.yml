@@ -4,9 +4,6 @@ metadata:
   name: symfony
   namespace: apjgel-test 
 spec:
-  selector:
-    matchLabels:
-      app: symfony 
   containers:
   - name: symfony-db
     image: {{ docker_image }} 
