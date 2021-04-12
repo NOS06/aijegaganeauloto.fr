@@ -36,7 +36,7 @@ RUN a2enmod rewrite remoteip && \
 
 RUN yarn install && yarn build
 
-ENV APP_ENV=dev \
+ENV APP_ENV=prod \
     APP_DEBUG=0 \
     DATABASE_URL="postgresql://main:main@database:5432/main?serverVersion=12&charset=utf8"
 
