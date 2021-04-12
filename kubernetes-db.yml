@@ -13,4 +13,4 @@ spec:
      - name: APP_SECRET
        value: "99fdd70735dc3d295670ae0a57e6f8e9"
      - name: DATABASE_URL
-       value: "postgresql://main:main@postgres.test.svc.cluster.local:5432/main?serverVersion=13&charset=utf8"
+       value: "postgresql://main:main@postgres:5432/main?serverVersion=13&charset=utf8"
