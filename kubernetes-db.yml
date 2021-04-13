@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: symfony-db
+  namespace: apjgel-test 
+spec:
+  containers:
+  - name: symfony-db
+    image: {{ docker_image }} 
+    command: ["bin/console"]
+    args: ["doctrine:migrations:migrate", "-n"]
+    env:
+     - name: APP_SECRET
+       value: "99fdd70735dc3d295670ae0a57e6f8e9"
+     - name: DATABASE_URL
+       value: "postgresql://main:main@postgres:5432/main?serverVersion=13&charset=utf8"
+  restartPolicy: OnFailure
