@@ -93,7 +93,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`apjgel.cloudlol.lol`)
+    - match: Host(`aijegaganeauloto.cloudlol.lol`)
       kind: Rule
       services:
         - name: symfony
@@ -111,7 +111,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`apjgel.cloudlol.lol`)
+    - match: Host(`aijegaganeauloto.cloudlol.lol`)
       kind: Rule
       services:
         - name: symfony
