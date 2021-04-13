@@ -8,7 +8,9 @@ on:
   workflow_run:
     workflows: ["CI","Lint"]
     branches: [main]
-    types: [completed]
+    types:
+      - completed
+      - requested
 
 jobs:
   build-push:
