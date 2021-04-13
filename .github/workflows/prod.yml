@@ -61,7 +61,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: apply -f kubernetes-staging.yml 
+          args: apply -f kubernetes-prod.yml 
       - name: init-db 
         uses: steebchen/kubectl@master
         env:
