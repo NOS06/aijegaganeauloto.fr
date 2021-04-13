@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DrawingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=DrawingRepository::class)
@@ -52,9 +53,9 @@ class Drawing
      */
     private ?int $luckyNumber;
 
-    public function __construct()
+    public function __construct(UuidInterface $id)
     {
-        $this->id = Uuid::uuid4();
+        $this->id = $id;
     }
 
     public function getId(): string

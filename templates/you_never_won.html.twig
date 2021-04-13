@@ -3,5 +3,9 @@
 {% block title %}{% endblock %}
 
 {% block main %}
-    Sorry you never won 🥺. But try again...
+<div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-6 text-center">
+        Sorry you never won 🥺. But <a href="{{ path('did_i_win') }}">try again...</a>
+    </div>
+</div>
 {% endblock %}
