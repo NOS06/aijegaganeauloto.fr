@@ -1,8 +1,8 @@
 name: "Docker Build"
 on:
   push:
-    branches:
-      - 'develop'
+    branches-ignore:
+      - 'main'
 #  workflow_run:
 #    workflows: ["CI","Lint"]
 #    types: [completed]
